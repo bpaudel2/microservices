@@ -1,0 +1,372 @@
+DESIGN MICROSERVICES:
+	Microservices is an approach to developing a single application as a 
+suite of small services. Each runs on its own process and communicates using 
+lightweight mechanism, usually using an HTTP based API. Microservices are built 
+around business capabilities. Independently deployable, using automated deployment 
+tools. They are decentralized in nature. Enables apps to be written by multiple 
+teams using multiple tech stacks. 
+
+Why Microservices:
+	Decrease the cost of change
+	allow easier integration
+	work well within a DevOps context
+	
+Monolith VS Microservices:
+	monolithic application is one in which all components are a part of the same 
+	application and run under same process. In microservices architecture, the components
+	are separated into their own process that run independently. 
+	
+Monolithic App:
+	Less modular
+	scalability is done by scaling the entire app
+	entire app is written in the same language or tech stack
+Microservices App:
+	Each service is its own module
+	Each service is independently scalable
+	Apps can be made up of services in multiple languages or stacks. 
+	
+Design Principle for Microservices Architecture:
+	1. components as services: components can be made into services in Node.js very 
+		easily using express, using the routing capabilities that express provides, 
+		we can create web-based APIs very quickly. 
+		Express is minimalist web application. 
+	2. organization around specific business capabilities
+	3. products as opposed to projects 
+	4. smart endpoints and dumb pipes
+	5. decentralized governance
+	
+	Microservices lend themselves to a product-based approach to software 
+	development and maintenance. This works well for business capablity development 
+	because the developers have an on-going relationship with the software as they 
+	continue to develop and improve the application. Microservices sometimes create new 
+	business opportunities using the product-based approach. 
+	Microservices own their own domain logic. 
+	They use simple protocols like HTTP, and employ a RESTful approach to API 
+	management. 
+	Key to creating a microservices from a monolith is to change the communication 
+	pattern. 
+	Since each microservices has its own data store, applications can be written 
+	using multiple languages or tecch stacks if needed or desired. 
+	Pieces of the application can be scaled in accordance to the needs of the specific 
+	microservice. 
+	This does create more complexity in the management of data because data calls can not 
+	be made within the same transaction. 
+	
+	
+	//Reporting Dashboard
+	// Instantiate the Reporting Model
+	var model = require('../models/reportingModel');
+	//Get JSON Reporting data by report name
+	app.get('/getreport', function(req, res){
+		res.send(model.GetReport(req, res));
+	}
+	
+	MVC Pattern:
+	Model: 
+		data structures and interfaces for operations on that data
+		Node.js allows for you to require include files in your JS code
+		these are called modules in node.js
+		
+	View: 
+		the place to manage the way output is rendered
+		typically an output of JSON data. 
+		
+	Controller: 
+		the router that controls request and responses. 
+		controls the routing of the API calls
+		interfaces with the model to work with data (CRUD and so on)
+		passes response output to the view
+		
+	
+	Multi Repo VS Mono Repo:
+		multi repo are more forward for an enterprise-grade, multi-team, dev ops
+	pattern
+	mono repos are for smaller teams, where the chance of merge conflict is lower
+	and when there is a higher degree of integration between the services. 
+	
+	
+	Potential Node.js Environment:
+	
+	1. Cloud-Based Servers: Amazon EC2, Digital Ocean, and Heroku
+	2. Cloud be a physical server, Windows, Linux, macOS, and SunOS
+	3. Could be in Docker container or other containerized form.
+	
+	Digital Ocean is cloud based linux servers:
+	
+		1. Sign in to digital ocena
+		2. go to your droplet and click create your droplet.
+		3. you can choose various  distribution of linux
+		4. one click app is same as AMI in Amazon
+		5. let's choose standard ubunutu box
+		6. select ubunut and select size
+		7. choose the datacenter close from your place
+		8. select the option to add SSH key
+		9. Give it a name 
+		10. Once you have linux server running
+			i) sudo ap-get update //to update binaries
+			ii) sudo apt-get install nodejs 
+			iii) sudo apt-get install npm 
+			iv) cd /var/www/
+			v) git clone urlfromgit
+			vi) npm install
+			vii) node app.js
+			
+		
+	MongoDB:
+		Free and open source NOSQL document database.
+		JSON-like documents, meaning fields can vary between documents
+		The document model maps objects within the application's code
+		Support for queries, indexing, replication, load-balancing, file-storage,
+			server-side JS execution, and capped collections. 
+		Digital Ocean Droplet:
+		1) Import mongodb key 
+		>>sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 -recv EA12927
+		2) Adding repo details
+		>>sudo tee {directory} deb {url}
+		3) Update the repository
+		>> sudo apt-get update
+		4) Install mongodb
+		>> sudo apt-get install mongodb-org 
+		5) type command >>mongod to start mongodb 
+		
+ReactJS:
+	js Library for building user interfaces. 
+
+Handling Callbacks and Event Emitters and Promises:
+	Event Emitters: native node.js even Emitter 
+	Promises: an object that represents the result of an asynchronous transaction 
+	In order to ensure that calls in Node.js are non-blocking, they need to be made asynchronous
+	Traditionally this has been done with callbacks. 
+
+	Event Emitter: 
+		a part of node's core that emits events that can execute a function called a 
+	listener. can help with callback management, but error handling can be a hassle
+
+	Promises has fullfilled, rejected, pending or settled stage. It has 
+	then(), catch() and done() method. 
+
+Creating an API Gateway:
+	We need API Gateway to consolidate microservices. 
+	Few options are API Gateway and a load balancer to route traffic. 
+
+	First add a heartbeat endpoint to each microservice. It will used by 
+	Gateway to monitor the status of the microservice. 
+
+Deploying Microservices:
+	Deploying Microservices using PM2/using docker containers. 
+
+	Strategies for Microservice deployment
+	1. Multiple services per host. 
+		allows for efficient use of servers. 
+		chance of conflict between services. 
+		harder to manage resource constraints. 
+
+	2. Single service instance per host. 
+		isolates services from others. 
+		service has exclusive resources. 
+		easy to monitor and deploy. 
+		less efficient in some cases than multiple services per host. 
+
+	3. Service instance per container. 
+		package the service in docker container for deployment. 
+		scaling is easy by changing number of container instances. 
+		encapsulates the tech stack. 
+		isolates each service 
+
+	4. Serverless deployment 
+		eliminates the need to maintain servers 
+		scales according to usage 
+		these need to be quick and lightweight 
+		latency risk 
+		pay per request 
+
+PM2: 
+	Keep your application alive in production 
+	has docker integration 
+	generates and runs startup scripts 
+	supports deployment and monitoring 
+
+	Install:
+		>>sudo apt-get update 
+		>>npm install pm2@latest -g //install PM2 
+		>>npm update //you might need to do it. 
+
+	Go to /var/www and clone repo there. 
+	Navigate to each microservice and run >>npm install
+	check if your microservices can run; just to test. 
+
+	PM2 is great process manager for nodeJS. It make it possible to start your app 
+	and keep it running even after you log off. Also it will restart your app if server gets 
+	rooboted. 
+	>> pm2 start app.js -n <name_of_microservice> 
+
+Setting ecosystem and deploying: 
+	- Create an ecosystem.json file 
+	- PM2 deploy productions 
+	- allows you to deploy multiple apps 
+
+	pm2.keymetrics.io 
+	
+Using Docker Container: 
+	Docker: 
+		enterprise-ready container platform, provides security and governmance 
+		automation by design, support and certification. 
+
+	Containerization: 
+		solves the problem of how reliably move software between environments. 
+		encapsulates the entire runtime environment 
+		includes the application and its dependencies, libraries and 
+		other binaries. 
+
+	install docker: 
+		install gpg key: 
+		>>curl --fsSL https://download.docker.com/linux/ubuntu/gpg |sudo apt-key add - 
+		This make it possible for us to pull docker images from main hosts. 
+
+		add repository for docker
+		>>sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" 
+		>>sudo apt-get update 
+	Update policy for updated docker so that we won't use those outdated ones 
+		>>apt-cache policy docker-ce
+		>>sudo apt-get install docker 
+		>>docker run hello-world //grabs the repo from report and copy it in your local and runs it . 
+		>>docker pull ubuntu //pulls the instance of ubuntu 
+		>>docker images //will show ubuntu 
+		>>docker run -it ubuntu //you will be inside linux operating system 
+		Now, you can /var/www and clone your repo 
+		>>exit //to exit from ubuntu docker 
+		You need to commit if you want to save your command 
+		>>docker ps -l //gives the list of container id because image name can be duplicated and they are nullable . 
+		>>docker commit containerid <name_of_image_name> //could be microservices 
+		This will create new name for this image. 
+		>>docker images //you will see repository image called microservices 
+		>>docker run -it microservices 
+
+
+Scaling Microservices: 
+	NGINX: 
+		splits traffic among multiple servers, most common scaling solution 
+		web server, load balancer, reverse proxy, forward proxy, cache manager and more 
+
+		install
+		>>sudo apt-get update
+		>>sudo apt-get install nginx //probably need to do firewall manipulation 
+		On ubuntu: 
+		>>docker run -it ubuntu 
+		In docker, you are root. 
+		install niginx in your docker and commit. 
+		>>docker run -it -p:8083:80 nginx_microservice 
+		>>service nginx start 
+		In your browser, go to localhost:8083 
+		Managing INGINX Process: 
+			>>sudo systemctl stop nginx //to stop 
+			>>sudo sytemctl start nginx //to start 
+			>>sudo systemctl restart nginx //to restart 
+		You can alternately switch out systemctl with service. 
+		There is also reload command for nginx. 
+
+	LoadBalancing in NGINX: 
+		use the upstream directive to declare the servers 
+		use the proxy_pass directive to create the load balancer. 
+		test the load balancing configuration 
+		configuration:
+		- edit /etc/nginx/available-sites/default 
+		- set the upstream directive to point to the two microservices.
+
+			upstream microservices {
+				server: 162.243.144.211:8081;
+				server: 162.243.144.211:8082;
+			}
+			server:{
+				listen 80;
+				location/{
+					proxy_pass http://microservices;
+				}
+			}
+
+		- set the server to listen to port 80 or 443 
+		- use the proxy_pass directive to point to the microservices upstream server 
+
+	Navigate to localhost:8081/heartbeat to test the configuration. 
+
+	NGINX as API gateway: 
+		- edit /etc/nginx/available-sites/default 
+		- set one upstream directive for each microservice 
+		- use location and proxy_pass directive to create routes to the 
+		  upstream microservice  servers. 
+
+		  upstream shipping {
+			  server 162.243.144.211:8081;
+		  }
+
+		  upstream reporting {
+			  server 162.243.144.211:8082;
+		  }
+
+		  server{
+			  listen 80;
+			  location /shipping/ {
+				  proxy_pass http://shipping/;
+			  }
+
+			  location /reporting/ {
+				  proxy_pass http://reporting/;
+			  }
+		  }
+	>>nginx reload //to reload the config without restarting the service 
+
+
+
+	scaling: 
+		run multiple copies behind a load balancer
+		split the application into multiple services 
+		by partioning the data using data shards; not common in applicatio layer
+
+	Scaling by Data Partitioning: 
+		also known as horizantal scaling 
+		each instance of microservice is responsible for a subset of data 
+		massively increased complexity in the application level but may be easier in 
+		the DB tier. 
+
+Monitoring and Alerting: 
+	PM2 and keymetrics: 
+		>>pm2 monit 
+		Register for Keymetrics on their website with your email
+		which PM2 free service, link your microservice to keymetrics dashboard 
+		to get real time monitoring data 
+		once you link your microservice, 
+		make sure PM2 install on your server and link your pm2 to keymetrics
+		>>pm2 link //to link to your account
+		You can configure notification in keymetrics. 
+
+	Creating monitoring Microservices:
+		-get the list of microservice 
+		-query each service 
+		-upon failure, send alert 
+
+Uptime Robot as an Off-Site Monitoring Service: 
+	This is the backup when your monitoring microservice go down. 
+	Uptime Robot is free monitoring solution. 
+	uptimerobot.com 
+		set up account
+		simply use "Port" monitor type to regularly monitor a microserve at 
+		certain ip address
+		provides simple dashboard, also the history of even and configure setting to alert 
+		
+
+
+
+
+	
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
