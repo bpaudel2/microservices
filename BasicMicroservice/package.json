@@ -12,6 +12,6 @@
   "author": "b1k",
   "license": "GPL-3.0",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.17.3"
   }
 }
